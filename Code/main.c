@@ -13,6 +13,11 @@
 volatile uint8_t advance = 0;
 volatile uint8_t reset = 0;
 
+uint8_t characterNum = 0;
+uint8_t element = 0;
+uint8_t message[MAX_CHARS];
+int newMessage = 0;
+
 
 // ISR for when Timer 1 reaches a set value (when the LEDs should be output to because a degree has been advanced)
 ISR(TIMER1_COMPA_vect)
@@ -51,11 +56,7 @@ int main(void){
 
 	uint8_t playing = 0;
 	uint8_t frame = 0;
-	uint8_t message[MAX_CHARS]; 
-	uint8_t element = 0;
 	uint8_t character;
-	uint8_t characterNum = 0;
-	int newMessage = 0;
 
 	while(1){
 
@@ -70,12 +71,13 @@ int main(void){
 				}
 
 				newMessage = 0;
+				element = 0;
 			}
 
 			character = usart_recieve();
 
 				// If the Enter key was not pressed
-				if(character != 10 & element < MAX_CHARS) {
+				if(character != 13 & element < MAX_CHARS) {
 					message[element] = character;
 					element++;
 				}
