@@ -9,7 +9,7 @@ void config_timer(){
 	TIMSK1 |= (1 << OCIE1A);
 
 	// Setting the value that the interrupt will trigger on when Timer1 matches it
-	OCR1A = 65535;
+	OCR1A = 350;
 	
 	// Enabling the timer clock with a prescaler of 64 (clock for timer = 20 MHz / 64)
 	TCCR1B |= (1 << CS10) | (1 << CS11);

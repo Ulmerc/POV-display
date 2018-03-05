@@ -25,9 +25,8 @@ void config_usart() {
 	// Configuring the reciever to be enabled (transmitter is enabled also, for testing purposes)
 	UCSR0B |= (1 << RXEN0) | (1 << TXEN0);
 
-	// Configuring the Parity mode to enabled with odd parity
-	//UCSR0C |= (1<<UPM01) | (1<<UPM00);
-
+	// Activating the pull-up resistor on the microcontroller's RX line (PD0)
+	PORTD |= (1 << 0);
 }
 
 unsigned char usart_recieve(void) {
