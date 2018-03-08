@@ -9,6 +9,7 @@
 
 #define MAX_CHARS 75
 #define MAX_FRAMES 5
+#define ENTER_CODE 13
 
 volatile uint8_t advance = 0;
 volatile uint8_t reset = 0;
@@ -59,11 +60,11 @@ int main(void){
 	uint8_t character;
 
 	while(1){
-
+		// If there are unread characters in the USART buffer
 		if((UCSR0A & (1 << RXC0))){
 			
 			playing = 0;
-
+			// If this isn't the first message
 			if(newMessage){
 
 				for(int i = 0; i < element; i++){
@@ -73,16 +74,15 @@ int main(void){
 				newMessage = 0;
 				element = 0;
 			}
-
+			// Get the input character
 			character = usart_recieve();
 
 				// If the Enter key was not pressed
-				if(character != 13 & element < MAX_CHARS) {
+				if(character != ENTER_CODE & element < MAX_CHARS) {
 					message[element] = character;
 					element++;
 				}
-				else{
-					
+				else {
 					newMessage = 1;
 				}
    		 }
